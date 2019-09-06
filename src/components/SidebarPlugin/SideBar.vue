@@ -9,9 +9,10 @@
     <!-- -->
     <div class="sidebar-wrapper" id="style-3">
       <div class="logo">
-        <a href="#" class="simple-text">
+        <a href="/" class="simple-text">
             <div class="logo-img">
-                <img src="@/assets/img/vue-logo.png" alt="">
+                <img src="/favicon.ico" alt="">
+                <!-- <img src="@/assets/img/vue-logo.png" alt=""> -->
             </div>
           {{title}}
         </a>
@@ -43,7 +44,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Paper Dashboard"
+      default: "Argon"
     },
     backgroundColor: {
       type: String,

@@ -2,47 +2,30 @@
   <div class="wrapper">
     <side-bar>
       <template slot="links">
-        <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel"/>
-        <sidebar-link to="/stats" name="User Profile" icon="ti-user"/>
-        <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/>
-        <sidebar-link to="/typography" name="Typography" icon="ti-text"/>
-        <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>
-        <sidebar-link to="/maps" name="Map" icon="ti-map"/>
-        <sidebar-link to="/notifications" name="Notifications" icon="ti-bell"/>
+        <router-link tag="li" :to="{name: 'Order List'}" class="nav-item" exact>
+          <a class="nav-link">
+            <i class="fa fa-newspaper-o"></i><p>Order</p>
+          </a>
+        </router-link>
+        <router-link tag="li" :to="{name: 'CategoryList'}" class="nav-item">
+          <a class="nav-link">
+            <i class="ti-view-list-alt"></i><p>Category</p>
+          </a>
+        </router-link>
+        <router-link tag="li" :to="{name: 'UserPermission'}" class="nav-item">
+          <a class="nav-link">
+            <i class="fa fa-address-card"></i><p>User Permission</p>
+          </a>
+        </router-link>
+        <!-- <sidebar-link to="/" name="Order" icon="fa fa-newspaper-o"/>
+        <sidebar-link to="/category-list" name="Category" icon="ti-view-list-alt"/>
+        <sidebar-link to="/user-permission" name="User Permission" icon="fa fa-address-card" v-if="is_admin"/> -->
+        <li class="nav-item"><a class="nav-link" @click="Logout"><i class="fa fa-sign-out"></i><p>Logout</p></a></li>
       </template>
-      <mobile-menu>
-        <li class="nav-item">
-          <a class="nav-link">
-            <i class="ti-panel"></i>
-            <p>Stats</p>
-          </a>
-        </li>
-        <drop-down class="nav-item"
-                   title="5 Notifications"
-                   title-classes="nav-link"
-                   icon="ti-bell">
-          <a class="dropdown-item">Notification 1</a>
-          <a class="dropdown-item">Notification 2</a>
-          <a class="dropdown-item">Notification 3</a>
-          <a class="dropdown-item">Notification 4</a>
-          <a class="dropdown-item">Another notification</a>
-        </drop-down>
-        <li class="nav-item">
-          <a class="nav-link">
-            <i class="ti-settings"></i>
-            <p>Settings</p>
-          </a>
-        </li>
-        <li class="divider"></li>
-      </mobile-menu>
     </side-bar>
     <div class="main-panel">
-      <top-navbar></top-navbar>
-
       <dashboard-content @click.native="toggleSidebar">
-
       </dashboard-content>
-
       <content-footer></content-footer>
     </div>
   </div>
@@ -54,7 +37,13 @@ import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "./MobileMenu";
+import firebase from 'firebase';
 export default {
+  data() {
+    return {
+      is_admin: false
+    }
+  },
   components: {
     TopNavbar,
     ContentFooter,
@@ -66,7 +55,35 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    }
+    },
+    Logout: function () {
+      var thisI = this
+      firebase.auth().signOut().then(function () {
+        thisI.$router.push({ name: 'Login' })
+        return false
+        // Sign-out successful.
+      })
+    },
+  },
+  mounted: function () {
+    var self = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var db = firebase.firestore()
+        // User access category collection
+        var userAccess = db.collection('user_access').where('user_name', '==', user.email)
+        userAccess.get().then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (doc.data().is_admin) {
+              self.is_admin = true
+            } else {
+              self.is_admin = false
+            }
+          })
+        })
+        return false
+      }
+    })
   }
 };
 </script>
