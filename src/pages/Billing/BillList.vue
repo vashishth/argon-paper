@@ -44,7 +44,7 @@
                     Category<br>
                     <select class="form-control" style="padding: 0px 6px;" v-model="search_cat" @change="getFilterItem">
                        <option value=""></option>
-                       <option v-for="value in filterBy(categories.category, val => available_cat.includes(val))" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
+                       <option v-for="value in categories.category" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
                     </select>
                  </th>
                  <th style="padding-bottom: 64px;">Amount</th>
@@ -222,42 +222,44 @@ export default {
       // db.settings({
       //   timestampsInSnapshots: true
       // })
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          var userAccess = db.collection('user_access').where('user_name', '==', user.email)
-          userAccess.get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-              if (doc.data().is_admin) {
-                thisI.available_cat = thisI.categories.category
-                thisI.is_admin = true
-              } else {
-                thisI.available_cat = doc.data().category_permission
-                thisI.is_admin = false
-              }
-              // User category wise order
-              thisI.available_cat.forEach((val) => {
-                var docRef = db.collection('users').orderBy('startedAt', 'desc').where('category', '==', val)
-                docRef.get().then(function (querySnapshot) {
-                  querySnapshot.forEach(function (doc) {
-                    thisI.items.push(Object.assign(doc.data(), { 'id': doc.id }))
-                    const ref = firebase.storage().refFromURL(doc.data().file)
-                    ref.getMetadata().then(function (metadata) {
-                      thisI.json_data.push(Object.assign(doc.data(), { 'imagename': metadata.fullPath }))
-                      thisI.showloder = false
-                    })
-                  })
-                  thisI.itemOrders = thisI.items
-                  thisI.showloder = false
-                }).catch(function (error) {
-                  console.log('Error getting document:', error)
-                })
-              })
-            })
+      var docRef = db.collection('users').orderBy('startedAt', 'desc')
+      docRef.get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          thisI.items.push(Object.assign(doc.data(), { 'id': doc.id }))
+          const ref = firebase.storage().refFromURL(doc.data().file)
+          ref.getMetadata().then(function (metadata) {
+            thisI.json_data.push(Object.assign(doc.data(), { 'imagename': metadata.fullPath }))
+            thisI.showloder = false
           })
-        } else {
-          thisI.$router.push({ name: 'Login' })
-        }
+        })
+        thisI.itemOrders = thisI.items
+        thisI.showloder = false
+      }).catch(function (error) {
+        console.log('Error getting document:', error)
       })
+      // firebase.auth().onAuthStateChanged(function (user) {
+      //   if (user) {
+      //     var userAccess = db.collection('user_access').where('user_name', '==', user.email)
+      //     userAccess.get().then(function (querySnapshot) {
+      //       querySnapshot.forEach(function (doc) {
+      //         console.log('ddddddddddd')
+      //         if (doc.data().is_admin) {
+      //           thisI.available_cat = thisI.categories.category
+      //           thisI.is_admin = true
+      //         } else {
+      //           thisI.available_cat = doc.data().category_permission
+      //           thisI.is_admin = false
+      //         }
+      //         console.log(thisI.available_cat)
+      //         // User category wise order
+      //         thisI.available_cat.forEach((val) => {
+      //         })
+      //       })
+      //     })
+      //   } else {
+      //     thisI.$router.push({ name: 'Login' })
+      //   }
+      // })
     },
     newCategory: function () {
       window.open(this.$router.resolve({ name: 'addnewcategory' }).href, '_blank')

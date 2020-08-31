@@ -19,7 +19,7 @@
                   <div class="col-lg-12 col-md-12 col-sm-12"><p>Select Category :
                     <!-- <input type="text" onpaste="return false;" v-model="catRename" class="form-control" id="usr"> -->
                     <select multiple class="form-control" v-model="select_cat">
-                      <option v-for="value in filterBy(categories.category, val => available_cat.includes(val))" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
+                      <option v-for="value in filterBy(categories.category)" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
                     </select></p>
                   </div>
                 </div>

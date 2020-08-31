@@ -34,7 +34,7 @@
                       <div class="form-group">
                          <label class="control-label">Category</label>
                          <select class="form-control" id="category_option" v-model="category">
-                            <option v-for="value in filterBy(categories.category, val => available_cat.includes(val))" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
+                            <option v-for="value in categories.category" :key="value" :value="value">{{value.charAt(0).toUpperCase() + value.substr(1)}}</option>
                          </select>
                          <span v-if='category_alert' style="color:red;float: left;align-items: center;">* {{category_alert}}</span>
                       </div>

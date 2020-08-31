@@ -48,9 +48,9 @@
             </tr>
            </thead>
            <tbody>
-            <tr v-if="filterBy(categories.category, val => available_cat.includes(val)).length <= 0"><td colspan="7">Please wait...</td></tr>
+            <tr v-if="filterBy(categories.category).length <= 0"><td colspan="7">Please wait...</td></tr>
             <tr v-if="datafounderror"><td colspan="7">No Data Found</td></tr>
-            <tr v-for="(value, index) in limitBy(filterBy(categories.category, val => available_cat.includes(val)), 10, page * 10 - 10)" :key="index" :value="value">
+            <tr v-for="(value, index) in limitBy(categories.category, 10, page * 10 - 10)" :key="index" :value="value">
              <td>{{ index+1+page * 10 - 10 }}</td>
              <td>{{ value.charAt(0).toUpperCase() + value.substr(1) }}</td>
              <td>
