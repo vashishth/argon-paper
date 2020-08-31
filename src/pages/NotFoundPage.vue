@@ -4,7 +4,9 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <router-link :to="{path:'/'}" class="navbar-brand">Go Back</router-link>
+          <router-link :to="{ path: '/' }" class="navbar-brand"
+            >Go Back</router-link
+          >
         </div>
       </div>
       <!-- /.container-->
@@ -15,7 +17,9 @@
           <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center">
               <h2 class="title text-danger">404 Not Found</h2>
-              <h2 class="title">Oops! It seems that this page does not exist.</h2>
+              <h2 class="title">
+                Oops! It seems that this page does not exist.
+              </h2>
             </div>
           </div>
         </div>
@@ -26,10 +30,10 @@
         <nav class="pull-left">
           <ul>
             <li>
-              <router-link :to="{path:'/'}">Home</router-link>
+              <router-link :to="{ path: '/' }">Home</router-link>
             </li>
             <li>
-              <router-link :to="{path:'/register'}">Register</router-link>
+              <router-link :to="{ path: '/register' }">Register</router-link>
             </li>
           </ul>
         </nav>

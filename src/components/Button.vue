@@ -5,14 +5,15 @@
     :disabled="disabled || loading"
     class="btn"
     :class="[
-      {'btn-round': round},
-      {'btn-block': block},
-      {'btn-just-icon': icon},
-      {[`btn-${type}`]: type && !outline},
-      {[`btn-outline-${type}`]: type && outline},
-      {[`btn-${size}`]: size},
-      {'btn-link': simple}
-    ]">
+      { 'btn-round': round },
+      { 'btn-block': block },
+      { 'btn-just-icon': icon },
+      { [`btn-${type}`]: type && !outline },
+      { [`btn-outline-${type}`]: type && outline },
+      { [`btn-${size}`]: size },
+      { 'btn-link': simple }
+    ]"
+  >
     <slot name="loading">
       <i v-if="loading" class="fa fa-spinner fa-spin"></i>
     </slot>
@@ -21,7 +22,7 @@
 </template>
 <script>
 export default {
-  name: 'p-button',
+  name: "p-button",
   props: {
     tag: {
       type: String,
@@ -49,5 +50,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

@@ -6,14 +6,18 @@
           <div class="row" v-for="member in members" :key="member.name">
             <div class="col-3">
               <div class="avatar">
-                <img :src="member.image" alt="Circle Image" class="rounded img-fluid">
+                <img
+                  :src="member.image"
+                  alt="Circle Image"
+                  class="rounded img-fluid"
+                />
               </div>
             </div>
             <div class="col-6">
-              {{member.name}}
-              <br>
+              {{ member.name }}
+              <br />
               <span :class="getStatusClass(member.status)">
-                <small>{{member.status}}</small>
+                <small>{{ member.status }}</small>
               </span>
             </div>
 
@@ -68,5 +72,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

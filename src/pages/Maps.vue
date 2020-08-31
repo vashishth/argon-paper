@@ -1,9 +1,9 @@
 <template>
-    <card class="card-map" title="Google Maps">
-      <div class="map">
-        <div id="map"></div>
-      </div>
-    </card>
+  <card class="card-map" title="Google Maps">
+    <div class="map">
+      <div id="map"></div>
+    </div>
+  </card>
 </template>
 <script>
 export default {
@@ -81,5 +81,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>
