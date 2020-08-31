@@ -25,12 +25,14 @@ Vue.config.productionTip = false;
 
 if (navigator.onLine) {
   var config = {
-    apiKey: "AIzaSyAvKgx1AmGvS_7f_62iIvdxR2lyzJreVcM",
-    authDomain: "kaushaldemo-8d55c.firebaseapp.com",
-    databaseURL: "https://kaushaldemo-8d55c.firebaseio.com",
-    projectId: "kaushaldemo-8d55c",
-    storageBucket: "kaushaldemo-8d55c.appspot.com",
-    messagingSenderId: "875925326754"
+    apiKey: "AIzaSyDn6sVWCpQ4vIqn3wJTNVX6_N8iS38DlbY",
+    authDomain: "argon-3adce.firebaseapp.com",
+    databaseURL: "https://argon-3adce.firebaseio.com",
+    projectId: "argon-3adce",
+    storageBucket: "argon-3adce.appspot.com",
+    messagingSenderId: "605742544011",
+    appId: "1:605742544011:web:3bd2f7e2cd599b9b3c108e",
+    measurementId: "G-7JSXL9WM66"
   };
   firebase.initializeApp(config);
 } else {
